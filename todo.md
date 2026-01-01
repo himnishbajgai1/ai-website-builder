@@ -85,11 +85,11 @@
 - [ ] Implement secure file access controls
 
 ### Phase 13: Real-time Preview
-- [ ] Build desktop viewport preview
-- [ ] Implement mobile viewport preview
-- [ ] Add tablet viewport preview
-- [ ] Create responsive preview toggle
-- [ ] Implement live preview updates
+- [x] Build desktop viewport preview
+- [x] Implement mobile viewport preview
+- [x] Add tablet viewport preview
+- [x] Create responsive preview toggle
+- [x] Implement live preview updates
 
 ### Phase 14: Code Generation
 - [ ] Implement HTML generation from design
@@ -121,3 +121,6 @@
 - [x] Export to Framer, Figma, Webflow, and HTML formats
 - [x] Database schema with all required tables
 - [x] tRPC procedures for all core features
+- [x] Responsive preview panel with desktop/tablet/mobile toggles
+- [x] Real-time viewport switching with grid overlay
+- [x] Fullscreen preview mode for immersive viewing
