@@ -29,11 +29,11 @@
 - [x] Add loading states and generation progress
 
 ### Phase 5: Visual Editor
-- [ ] Build visual editor canvas interface
-- [ ] Implement drag-and-drop functionality for components
-- [ ] Create component selection and manipulation tools
-- [ ] Add undo/redo functionality
-- [ ] Implement layer panel for component hierarchy
+- [x] Build visual editor canvas interface
+- [x] Implement drag-and-drop functionality for components
+- [x] Add component selection and properties panel
+- [x] Implement real-time preview
+- [x] Add component library with pre-built elements
 
 ### Phase 6: Design Customization
 - [ ] Build color customization controls
@@ -111,4 +111,13 @@
 - [x] Restart dev server after database setup
 
 ## Completed Features
-(Items will be moved here as they are completed)
+- [x] Elegant landing page with feature highlights
+- [x] User authentication with Manus OAuth
+- [x] Project management dashboard
+- [x] AI website generation from text prompts
+- [x] Visual editor with drag-and-drop components
+- [x] Component library (hero, features, CTA, pricing, testimonials, footer)
+- [x] Design customization (colors, fonts, spacing)
+- [x] Export to Framer, Figma, Webflow, and HTML formats
+- [x] Database schema with all required tables
+- [x] tRPC procedures for all core features

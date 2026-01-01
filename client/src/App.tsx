@@ -7,6 +7,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import Editor from "./pages/Editor";
+import VisualEditor from "./pages/VisualEditor";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -14,7 +15,7 @@ function Router() {
     <Switch>
       <Route path={"/"} component={Home} />
       <Route path={"/dashboard"} component={Dashboard} />
-      <Route path={"/editor/:projectId"} component={Editor} />
+      <Route path={"/editor/:projectId"} component={VisualEditor} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
