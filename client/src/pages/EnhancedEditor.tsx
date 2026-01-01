@@ -8,6 +8,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Loader2, Sparkles, Download, Eye, Copy, Trash2, Plus, Move, Code } from "lucide-react";
 import { toast } from "sonner";
 import { ResponsivePreview, type ViewportType } from "@/components/ResponsivePreview";
+import { AIImageGenerator } from "@/components/AIImageGenerator";
+import { TemplateGallery } from "@/components/TemplateGallery";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,6 +17,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
 
 interface EditorComponent {
   id: string;
@@ -133,6 +136,8 @@ export default function EnhancedEditor(props: any) {
   const [viewport, setViewport] = useState<ViewportType>("desktop");
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showPreviewOnly, setShowPreviewOnly] = useState(false);
+  const [showImageGenerator, setShowImageGenerator] = useState(false);
+  const [showTemplateGallery, setShowTemplateGallery] = useState(false);
   const canvasRef = useRef<HTMLDivElement>(null);
 
   const projectId_num = parseInt(projectId || "");
@@ -361,6 +366,22 @@ export default function EnhancedEditor(props: any) {
               >
                 <Eye className="w-4 h-4" />
                 Preview
+              </Button>
+
+                <Button
+                variant="outline"
+                className="gap-2"
+                onClick={() => setShowTemplateGallery(true)}
+              >
+                📋 Templates
+              </Button>
+
+              <Button
+                variant="outline"
+                className="gap-2"
+                onClick={() => setShowImageGenerator(true)}
+              >
+                🎨 Generate Image
               </Button>
 
               <DropdownMenu>
@@ -639,6 +660,39 @@ export default function EnhancedEditor(props: any) {
           </div>
         </div>
       </div>
+
+      {/* AI Image Generator Modal */}
+      <AIImageGenerator
+        projectId={projectId_num}
+        open={showImageGenerator}
+        onOpenChange={setShowImageGenerator}
+      />
+
+      {/* Template Gallery Modal */}
+      <TemplateGallery
+        open={showTemplateGallery}
+        onOpenChange={setShowTemplateGallery}
+        onTemplateSelect={(template) => {
+          setDesignState((prev: DesignState): DesignState => ({
+            ...prev,
+            components: template.sections.map((section, idx) => ({
+              id: `component-${idx}`,
+              type: section.type as any,
+              title: section.title,
+              content: section.content,
+              x: 0,
+              y: idx * 30,
+              width: 100,
+              height: 25,
+              bgColor: Object.values(template.designTokens.colors)[0] || "#3B82F6",
+              textColor: "#FFFFFF",
+              properties: {},
+            })),
+            designTokens: template.designTokens,
+          }));
+          toast.success(`Template "${template.name}" loaded successfully!`);
+        }}
+      />
     </div>
   );
 }
