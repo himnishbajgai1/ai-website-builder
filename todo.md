@@ -106,5 +106,9 @@
 - [ ] Final bug fixes and polish
 - [ ] Prepare for deployment
 
+## Bug Fixes & Maintenance
+- [x] Fix database table creation in production environment
+- [x] Restart dev server after database setup
+
 ## Completed Features
 (Items will be moved here as they are completed)
