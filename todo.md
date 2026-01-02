@@ -119,6 +119,11 @@
 - [x] Component library (hero, features, CTA, pricing, testimonials, footer)
 - [x] Design customization (colors, fonts, spacing)
 - [x] Export to Framer, Figma, Webflow, and HTML formats
+- [x] Implement real Framer export with component structure
+- [x] Implement real Figma export with design tokens and layers
+- [x] Implement real Webflow export with CMS-ready structure
+- [x] Implement HTML/CSS export with responsive code
+- [x] Add file download functionality for all export formats
 - [x] Database schema with all required tables
 - [x] tRPC procedures for all core features
 - [x] Responsive preview panel with desktop/tablet/mobile toggles

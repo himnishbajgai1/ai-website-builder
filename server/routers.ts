@@ -9,6 +9,7 @@ import { invokeLLM } from "./_core/llm";
 import { generateImage } from "./_core/imageGeneration";
 import { storagePut, storageGet } from "./storage";
 import { nanoid } from "nanoid";
+import { exportToFramer, exportToFigma, exportToWebflow, exportToHTML } from "./exporters";
 
 export const appRouter = router({
   system: systemRouter,
@@ -330,18 +331,14 @@ Return a JSON object with the following structure:
         if (!design) throw new TRPCError({ code: "NOT_FOUND" });
 
         try {
-          const framerData = {
-            version: "1.0",
-            type: "framer",
-            project: project.name,
-            design: design.designData,
-            tokens: design.designTokens,
-          };
+          const result = await exportToFramer(
+            design.designData as any,
+            design.designTokens as any,
+            project.name
+          );
 
-          const fileKey = `exports/${input.projectId}/framer-${nanoid()}.json`;
-          const { url } = await storagePut(fileKey, JSON.stringify(framerData), "application/json");
-
-          return db.createExport(input.projectId, input.designId, "framer", url, fileKey, framerData);
+          await db.createExport(input.projectId, input.designId, "framer", result.url, result.fileKey);
+          return result;
         } catch (error) {
           throw new TRPCError({
             code: "INTERNAL_SERVER_ERROR",
@@ -363,18 +360,14 @@ Return a JSON object with the following structure:
         if (!design) throw new TRPCError({ code: "NOT_FOUND" });
 
         try {
-          const figmaData = {
-            version: "1.0",
-            type: "figma",
-            project: project.name,
-            design: design.designData,
-            tokens: design.designTokens,
-          };
+          const result = await exportToFigma(
+            design.designData as any,
+            design.designTokens as any,
+            project.name
+          );
 
-          const fileKey = `exports/${input.projectId}/figma-${nanoid()}.json`;
-          const { url } = await storagePut(fileKey, JSON.stringify(figmaData), "application/json");
-
-          return db.createExport(input.projectId, input.designId, "figma", url, fileKey, figmaData);
+          await db.createExport(input.projectId, input.designId, "figma", result.url, result.fileKey);
+          return result;
         } catch (error) {
           throw new TRPCError({
             code: "INTERNAL_SERVER_ERROR",
@@ -396,22 +389,14 @@ Return a JSON object with the following structure:
         if (!design) throw new TRPCError({ code: "NOT_FOUND" });
 
         try {
-          const webflowData = {
-            version: "1.0",
-            type: "webflow",
-            project: project.name,
-            design: design.designData,
-            tokens: design.designTokens,
-            cms: {
-              collections: [],
-              fields: [],
-            },
-          };
+          const result = await exportToWebflow(
+            design.designData as any,
+            design.designTokens as any,
+            project.name
+          );
 
-          const fileKey = `exports/${input.projectId}/webflow-${nanoid()}.json`;
-          const { url } = await storagePut(fileKey, JSON.stringify(webflowData), "application/json");
-
-          return db.createExport(input.projectId, input.designId, "webflow", url, fileKey, webflowData);
+          await db.createExport(input.projectId, input.designId, "webflow", result.url, result.fileKey);
+          return result;
         } catch (error) {
           throw new TRPCError({
             code: "INTERNAL_SERVER_ERROR",
@@ -433,13 +418,14 @@ Return a JSON object with the following structure:
         if (!design) throw new TRPCError({ code: "NOT_FOUND" });
 
         try {
-          // Generate HTML from design
-          const htmlContent = generateHTMLFromDesign(design.designData, design.designTokens);
+          const result = await exportToHTML(
+            design.designData as any,
+            design.designTokens as any,
+            project.name
+          );
 
-          const fileKey = `exports/${input.projectId}/html-${nanoid()}.html`;
-          const { url } = await storagePut(fileKey, htmlContent, "text/html");
-
-          return db.createExport(input.projectId, input.designId, "html", url, fileKey);
+          await db.createExport(input.projectId, input.designId, "html", result.url, result.fileKey);
+          return result;
         } catch (error) {
           throw new TRPCError({
             code: "INTERNAL_SERVER_ERROR",

@@ -70,8 +70,8 @@ export default function Editor(props: any) {
       toast.success("Exported to Framer successfully!");
       // Trigger download
       const link = document.createElement("a");
-      link.href = exportData.fileUrl;
-      link.download = `framer-export.json`;
+      link.href = exportData.url;
+      link.download = exportData.fileName;
       link.click();
     },
     onError: (error) => {
@@ -83,8 +83,8 @@ export default function Editor(props: any) {
     onSuccess: (exportData) => {
       toast.success("Exported to Figma successfully!");
       const link = document.createElement("a");
-      link.href = exportData.fileUrl;
-      link.download = `figma-export.json`;
+      link.href = exportData.url;
+      link.download = exportData.fileName;
       link.click();
     },
     onError: (error) => {
@@ -96,8 +96,8 @@ export default function Editor(props: any) {
     onSuccess: (exportData) => {
       toast.success("Exported to Webflow successfully!");
       const link = document.createElement("a");
-      link.href = exportData.fileUrl;
-      link.download = `webflow-export.json`;
+      link.href = exportData.url;
+      link.download = exportData.fileName;
       link.click();
     },
     onError: (error) => {
@@ -109,8 +109,8 @@ export default function Editor(props: any) {
     onSuccess: (exportData) => {
       toast.success("Exported to HTML successfully!");
       const link = document.createElement("a");
-      link.href = exportData.fileUrl;
-      link.download = `website.html`;
+      link.href = exportData.url;
+      link.download = exportData.fileName;
       link.click();
     },
     onError: (error) => {
